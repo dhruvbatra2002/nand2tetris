@@ -39,5 +39,37 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-    // Put your code here:
+    Mux16(a = instruction, b = ALUoutput, sel = instruction[15], out = inA);
+
+    // If instruction is A-instruction or if A is a destination (per C-instructions), then load new A
+    Not(in = instruction[15], out = Ainstruction);
+    Or(a = Ainstruction, b = instruction[5], out = loadA);
+   
+    ARegister(in = inA, load = loadA, out = A, out[0..14] = addressM, out = PC);
+ 
+    // If C-instruction selects M as a destination for ALU output, write M:
+    And(a = instruction[3], b = instruction[15], out = writeM);
+
+    Mux16(a = A, b = inM, sel = instruction[12], out = Y);
+
+    // If C-instruction selects D as a destination, then load D:
+    And(a = instruction[4], b = instruction[15], out = writeD);
+    DRegister(in = ALUoutput, load = writeD, out = D);
+    
+    // Putting it all into the ALU:
+    ALU(x = D, y = Y, zx = instruction[11], nx = instruction[10], zy = instruction[9], ny = instruction[8], f = instruction[7], no = instruction[6], out = ALUoutput, out = outM, zr = zr, ng = ng);
+
+    // PC logic
+    Or(a = zr, b = ng, out = np);
+    Not(in = np, out = p);
+    And(a = instruction[2], b = ng, out = J1);
+    And(a = instruction[1], b = zr, out = J2);
+    And(a = instruction[0], b = p, out = J3);
+    Or(a = J1, b = J2, out = J4);
+    Or(a = J3, b = J4, out = J5);
+    And(a = J5, b = instruction[15], out = loadPC);
+    
+    // Plugging it all in to the Program Counter:
+    PC(in = PC, inc = true, reset = reset, load = loadPC, out[0..14] = pc);
+
 }
