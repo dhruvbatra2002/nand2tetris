@@ -1,7 +1,5 @@
 # My solutions for Nand2Tetris
 
-All solutions are located in
-
 Nand2Tetris allows students to - virtually - build a modern computer, starting with the logic gate Nand. It was developed by Israeli computer scientists Noam Nisan and Shimon Shocken (see nand2tetris.org).
 
 # So far . . .
