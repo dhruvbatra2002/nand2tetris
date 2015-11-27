@@ -22,7 +22,7 @@ To try the Javascript assembler, open up index.html in HackAssembler, and manual
 
 To try the Python assembler, run:
 
-  $ python HackAssembler/main.py [path to targeted assembly code]
+*python HackAssembler/main.py [path to targeted assembly code]*
 
 This will create a file in the same folder as the assembly code, and store its machine-code translation there.
 
