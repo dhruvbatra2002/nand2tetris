@@ -20,10 +20,10 @@ Nand2Tetris allows students to - virtually - build a modern computer, starting w
 
 To try the Javascript assembler, open up index.html in HackAssembler, and manually paste your assembly code into the input box.
 
-To try the Python assembler, run:
+To try the Python assembler, run the following command in the Project 6 directory:
 
 *python HackAssembler/main.py [path to targeted assembly code]*
 
-This will create a file in the same folder as the assembly code, and store its machine-code translation there.
+This will create a file in the same folder as the chosen assembly code, and store its machine-code translation there.
 
 
